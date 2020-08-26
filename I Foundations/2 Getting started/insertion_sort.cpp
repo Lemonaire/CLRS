@@ -27,7 +27,7 @@ void insertionSort(int array[], int len) {
 		int key = array[i];
 		int j = i - 1;
 		// 依次后移更大的元素
-		while(array[j] > key && j >= 0) {
+		while(j >= 0 && array[j] > key) {
 			array[j + 1] = array[j];
 			j--;
 		}
