@@ -1,4 +1,10 @@
 // 4.1 最大子数组问题
+/*
+    测试数据
+    16
+    13 -3 -25 20 -3 -16 -23 18 20 -7 12 -5 -22 15 -4 7
+    结果：7 10 43
+ */
 import java.util.Scanner;
 
 public class MaxSubarray {
@@ -9,7 +15,8 @@ public class MaxSubarray {
         for(int i = 0; i < len; i++) {
             array[i] = sc.nextInt();
         }
-        int[] result = findMaxSubarray(array, 0, len - 1);
+//        int[] result = findMaxSubarray_recursive(array, 0, len - 1);
+        int[] result = findMaxSubarray_bruteForce(array);
         for(int i = 0; i < 3; i++) {
             System.out.println(result[i]);
         }
@@ -40,14 +47,14 @@ public class MaxSubarray {
         return new int[] {leftIndex, rightIndex, leftSum + rightSum};
     }
 
-    static int[] findMaxSubarray(int[] array, int start, int end) {
+    static int[] findMaxSubarray_recursive(int[] array, int start, int end) {
         if(start == end) {
             return new int[] {start, end, array[start]};
         }
         else {
             int mid = (start + end) / 2;
-            int[] leftMax = findMaxSubarray(array, start, mid);
-            int[] rightMax = findMaxSubarray(array, mid + 1, end);
+            int[] leftMax = findMaxSubarray_recursive(array, start, mid);
+            int[] rightMax = findMaxSubarray_recursive(array, mid + 1, end);
             int[] midMax = findMaxCrossingSubarray(array, start, mid, end);
             if(leftMax[2] > rightMax[2] && leftMax[2] > midMax[2]) {
                 return leftMax;
@@ -59,5 +66,25 @@ public class MaxSubarray {
                 return midMax;
             }
         }
+    }
+
+    static int[] findMaxSubarray_bruteForce(int[] array) {
+        int maxSum = Integer.MIN_VALUE;
+        int leftIndex = -1;
+        int rightIndex = -1;
+        for(int i = 0; i < array.length; i++) {
+            int j = i;
+            int sum = 0;
+            while(j < array.length) {
+                sum += array[j];
+                if(sum > maxSum) {
+                    maxSum = sum;
+                    leftIndex = i;
+                    rightIndex = j;
+                }
+                j++;
+            }
+        }
+        return new int[] {leftIndex, rightIndex, maxSum};
     }
 }
