@@ -9,7 +9,7 @@
 
 代码：[C](./insertion_sort.cpp)、[java](./InsertionSort.java)  
 
-注意点：while 循环的判断条件中，必须将`j >= 0` 写在前面，以防数组下标越界；同时第二个条件必须是`array[j] > key`，而不能用`array[i]`代替`key`，因为第一次移位会改变`array[i]`的值。  
+注意点：while 循环的判断条件中，必须将`j >= 0` 写在前面，以防数组下标越界；同时第二个条件必须是`array[j] > key`，而不能用`array[i]`代替`key`，因为第一次移位会改变`array[i]`的值。插入排序和冒泡排序都是稳定的，选择排序是不稳定的。  
 
 ### 归并排序  
 
